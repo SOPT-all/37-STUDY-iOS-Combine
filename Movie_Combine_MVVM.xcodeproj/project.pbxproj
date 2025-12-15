@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		63A50E1F2EF083AC0012FA83 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 63A50E1E2EF083AC0012FA83 /* Then */; };
+		63A50E222EF083B60012FA83 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 63A50E212EF083B60012FA83 /* SnapKit */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		631184052EEC7B7E00FDF1B3 /* Movie_Combine_MVVM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Movie_Combine_MVVM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63A50E1F2EF083AC0012FA83 /* Then in Frameworks */,
+				63A50E222EF083B60012FA83 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +85,8 @@
 			);
 			name = Movie_Combine_MVVM;
 			packageProductDependencies = (
+				63A50E1E2EF083AC0012FA83 /* Then */,
+				63A50E212EF083B60012FA83 /* SnapKit */,
 			);
 			productName = Movie_Combine_MVVM;
 			productReference = 631184052EEC7B7E00FDF1B3 /* Movie_Combine_MVVM.app */;
@@ -107,6 +116,10 @@
 			);
 			mainGroup = 631183FC2EEC7B7E00FDF1B3;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				63A50E1D2EF083AC0012FA83 /* XCRemoteSwiftPackageReference "Then" */,
+				63A50E202EF083B60012FA83 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 631184062EEC7B7E00FDF1B3 /* Products */;
 			projectDirPath = "";
@@ -150,7 +163,6 @@
 				INFOPLIST_FILE = Movie_Combine_MVVM/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -182,7 +194,6 @@
 				INFOPLIST_FILE = Movie_Combine_MVVM/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -345,6 +356,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		63A50E1D2EF083AC0012FA83 /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+		63A50E202EF083B60012FA83 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		63A50E1E2EF083AC0012FA83 /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 63A50E1D2EF083AC0012FA83 /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
+		63A50E212EF083B60012FA83 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 63A50E202EF083B60012FA83 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 631183FD2EEC7B7E00FDF1B3 /* Project object */;
 }
