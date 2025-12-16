@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct Combine_StudyApp: App {
+    @StateObject private var viewModel = DailyBoxOfficeViewModel_Combine()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            DailyBoxOfficeView(viewModel: viewModel)
         }
     }
 }
