@@ -9,7 +9,14 @@ import UIKit
 
 import Combine
 
-final class MoviewAPIViewModel {
+protocol ViewModelProtocol {
+    associatedtype Input
+    associatedtype Output
+
+    func transform(input: Input) -> Output
+}
+
+final class MoviewAPIViewModel: ViewModelProtocol {
     struct Input {
         let viewWillAppear: AnyPublisher<Void, Never>
     }

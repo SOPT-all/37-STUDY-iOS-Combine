@@ -94,11 +94,17 @@ class MovieAPIViewController: UIViewController {
     }
 }
 
+
+// MARK: - TableView Delegate
+
 extension MovieAPIViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
     }
 }
+
+
+// MARK: - TableView DataSource
 
 extension MovieAPIViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
