@@ -10,9 +10,22 @@
 		513CE29C2EF065E1006C1062 /* Combine-Study.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Combine-Study.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		513CE2D02EF079C8006C1062 /* Exceptions for "Combine-Study" folder in "Combine-Study" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 513CE29B2EF065E1006C1062 /* Combine-Study */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		513CE29E2EF065E1006C1062 /* Combine-Study */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				513CE2D02EF079C8006C1062 /* Exceptions for "Combine-Study" folder in "Combine-Study" target */,
+			);
 			path = "Combine-Study";
 			sourceTree = "<group>";
 		};
@@ -246,6 +259,8 @@
 		};
 		513CE2AB2EF065E3006C1062 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 513CE29E2EF065E1006C1062 /* Combine-Study */;
+			baseConfigurationReferenceRelativePath = Config.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -255,6 +270,7 @@
 				DEVELOPMENT_TEAM = CG37U6CMKP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Combine-Study/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -275,6 +291,8 @@
 		};
 		513CE2AC2EF065E3006C1062 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 513CE29E2EF065E1006C1062 /* Combine-Study */;
+			baseConfigurationReferenceRelativePath = Config.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -284,6 +302,7 @@
 				DEVELOPMENT_TEAM = CG37U6CMKP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Combine-Study/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
