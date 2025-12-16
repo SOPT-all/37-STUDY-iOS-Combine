@@ -6,56 +6,94 @@
 //
 
 import UIKit
+
+import Combine
 import SnapKit
 import Then
 
 class MovieAPIViewController: UIViewController {
     
     // MARK: - Property
-    private let tableView = UITableView(frame: .zero, style: .plain)
+    
+    private let movieView = MovieAPIView()
+    private let viewModel = MoviewAPIViewModel()
+    private var cancellables = Set<AnyCancellable>()
+    
     private var movies: [MovieModel] = []
 
-    // MARK: - Init
+    private let viewWillAppearSubject = PassthroughSubject<Void, Never>()
+    
+    
+    // MARK: - LifeCycle
+    
+    override func loadView() {
+        view = movieView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.self.backgroundColor = .black
-        tableView.do {
-            $0.dataSource = self
-            $0.delegate = self
-            $0.register(MovieAPITableViewCell.self, forCellReuseIdentifier: MovieAPITableViewCell.identifier)
-            $0.backgroundColor = .clear
-        }
-        setStyle()
-        setLayout()
+        setDelegate()
+        setBind()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        self.navigationController?.navigationBar.tintColor = .gray
+        viewWillAppearSubject.send(())
     }
     
-    // MARK: - SetStyle
-    private func setStyle() {
-        Task {
-            do {
-                let result = try await MovieService.shared.fetchMovieRankList()
-                self.movies = result
-                self.tableView.reloadData()
-            } catch {
-                print("데이터 바인딩 실패:", error)
+    
+    // MARK: - Set Delegate
+    
+    private func setDelegate() {
+        movieView.tableView.delegate = self
+        movieView.tableView.dataSource = self
+    }
+    
+    
+    // MARK: - Set Bind
+    
+    private func setBind(){
+        let input = MoviewAPIViewModel.Input (viewWillAppear: viewWillAppearSubject.eraseToAnyPublisher())
+        
+        let output = viewModel.transform(input: input)
+        
+        output.movies
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] movies in
+                self?.movies = movies
+                self?.movieView.tableView.reloadData()
             }
-        }
+            .store(in: &cancellables)
+        
+        output.isLoading
+            .receive(on: DispatchQueue.main)
+            .sink { isLoading in
+                if isLoading {
+                    self.movieView.loadingIndicator.startAnimating()
+                    self.movieView.tableView.alpha = 0.5
+                } else {
+                    self.movieView.loadingIndicator.stopAnimating()
+                    self.movieView.tableView.alpha = 1
+                }
+            }
+            .store(in: &cancellables)
+        
+        output.error
+            .receive(on: DispatchQueue.main)
+            .compactMap { $0 }
+            .sink { [weak self] error in
+                self?.showErrorAlert(message: error)
+            }
+            .store(in: &cancellables)
     }
     
-    // MARK: - SetLayout
-    private func setLayout(){
-        self.view.addSubview(tableView)
-        tableView.snp.makeConstraints{
-            $0.edges.equalToSuperview()
-        }
+    private func showErrorAlert(message: String) {
+        let alert = UIAlertController(title: "에러", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default))
+        present(alert, animated: true)
     }
 }
+
 extension MovieAPIViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120

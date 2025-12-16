@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		338985FC2EF14F4600909A38 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 338985FB2EF14F4600909A38 /* SnapKit */; };
 		338985FF2EF14F5100909A38 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 338985FE2EF14F5100909A38 /* Then */; };
-		338986022EF14F8700909A38 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 338986012EF14F8700909A38 /* Moya */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,7 +43,6 @@
 			files = (
 				338985FC2EF14F4600909A38 /* SnapKit in Frameworks */,
 				338985FF2EF14F5100909A38 /* Then in Frameworks */,
-				338986022EF14F8700909A38 /* Moya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,7 +87,6 @@
 			packageProductDependencies = (
 				338985FB2EF14F4600909A38 /* SnapKit */,
 				338985FE2EF14F5100909A38 /* Then */,
-				338986012EF14F8700909A38 /* Moya */,
 			);
 			productName = "Combine-Study";
 			productReference = 338985292EF1497E00909A38 /* Combine-Study.app */;
@@ -122,7 +119,6 @@
 			packageReferences = (
 				338985FA2EF14F4600909A38 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				338985FD2EF14F5100909A38 /* XCRemoteSwiftPackageReference "Then" */,
-				338986002EF14F8700909A38 /* XCRemoteSwiftPackageReference "Moya" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 3389852A2EF1497E00909A38 /* Products */;
@@ -368,14 +364,6 @@
 				minimumVersion = 3.0.0;
 			};
 		};
-		338986002EF14F8700909A38 /* XCRemoteSwiftPackageReference "Moya" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Moya/Moya";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 15.0.3;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -388,11 +376,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 338985FD2EF14F5100909A38 /* XCRemoteSwiftPackageReference "Then" */;
 			productName = Then;
-		};
-		338986012EF14F8700909A38 /* Moya */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 338986002EF14F8700909A38 /* XCRemoteSwiftPackageReference "Moya" */;
-			productName = Moya;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
