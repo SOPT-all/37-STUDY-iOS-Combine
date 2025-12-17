@@ -237,6 +237,7 @@ class MovieViewModel: InputOutputViewModelProtocol {
                 case .hitHomeViewBottom, .viewDidLoad:
                     fetchPeopleData()
                 case .hitSearchViewBottom(let keyword):
+                    guard !keyword.isEmpty else { return }
                     searchMovieData(keyword: keyword)
                 case .search(let keyword):
                     self.movies = []
