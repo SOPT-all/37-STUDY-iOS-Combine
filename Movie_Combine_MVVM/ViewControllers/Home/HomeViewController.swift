@@ -21,6 +21,8 @@ class HomeViewController: UIViewController {
     private let inputSubject = PassthroughSubject<MovieViewModel.Input, Never>()
     private var cancellables: Set<AnyCancellable> = []
     
+    private let scrollEventSubject = PassthroughSubject<Void, Never>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view = homeView
@@ -28,13 +30,21 @@ class HomeViewController: UIViewController {
         homeView.collectionView.dataSource = self
         bindViewModel()
         inputSubject.send(.viewDidLoad)
+        
+        scrollEventSubject
+            .throttle(for: .seconds(0.3), scheduler: RunLoop.main, latest: false)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                inputSubject.send(.hitHomeViewBottom)
+            }
+            .store(in: &cancellables)
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         homeView.setCollectionViewLayout()
     }
-    
+
     func bindViewModel() {
         let output = viewModel.transform(input: inputSubject.eraseToAnyPublisher())
         
@@ -73,7 +83,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let height = scrollView.frame.size.height
         
         if offsetY > contentHeight - height - 100 {
-            inputSubject.send(.hitBottom)
+            scrollEventSubject.send()
         }
     }
 
@@ -81,9 +91,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
     }
 }
-
-
-
 
 #Preview {
     HomeViewController()
