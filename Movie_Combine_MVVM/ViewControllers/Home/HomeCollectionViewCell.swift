@@ -14,27 +14,27 @@ final class HomeCollectionViewCell: UICollectionViewCell {
     
     static let identifier: String = "HomeCollectionViewCell"
     
-    let movieNMLabel = UILabel().then {
+    let peopleNmLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 20, weight: .bold)
     }
     
-    let prdtYearLabel = UILabel().then {
+    let roleNmLabel = UILabel().then {
         $0.textAlignment = .right
         $0.font = .systemFont(ofSize: 14, weight: .regular)
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.addSubview(movieNMLabel)
-        self.addSubview(prdtYearLabel)
+        self.addSubview(peopleNmLabel)
+        self.addSubview(roleNmLabel)
         
-        movieNMLabel.snp.makeConstraints { make in
+        peopleNmLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalToSuperview().offset(16)
-            make.trailing.equalTo(prdtYearLabel.snp.leading).offset(-10)
+            make.trailing.equalTo(roleNmLabel.snp.leading).offset(-10)
         }
         
-        prdtYearLabel.snp.makeConstraints { make in
+        roleNmLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview().offset(-16)
             make.width.equalTo(50)
@@ -45,19 +45,19 @@ final class HomeCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(data: Movie, index: Int) {
+    func configure(data: People, index: Int) {
         switch (index / 10 ) % 3 {
         case 0:
-            movieNMLabel.textColor = .systemPink
+            peopleNmLabel.textColor = .systemPink
         case 1:
-            movieNMLabel.textColor = .systemCyan
+            peopleNmLabel.textColor = .systemCyan
         case 2:
-            movieNMLabel.textColor = .systemGreen
+            peopleNmLabel.textColor = .systemGreen
         default:
-            movieNMLabel.textColor = .white
+            peopleNmLabel.textColor = .white
         }
-        movieNMLabel.text = String(index + 1) + ": " + data.movieNm
-        prdtYearLabel.text = data.prdtYear
+        peopleNmLabel.text = String(index + 1) + ": " + data.peopleNm
+        roleNmLabel.text = data.repRoleNm
     }
     
 }

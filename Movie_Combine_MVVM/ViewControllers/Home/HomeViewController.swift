@@ -53,7 +53,7 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.movies.count
+        return viewModel.people.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -62,11 +62,11 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                         else {
                     return UICollectionViewCell()
                 }
-        let data = viewModel.movies[indexPath.row]
+        let data = viewModel.people[indexPath.row]
         cell.configure(data: data, index: indexPath.row)
         return cell
     }
-    
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
@@ -75,6 +75,10 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         if offsetY > contentHeight - height - 100 {
             inputSubject.send(.hitBottom)
         }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
     }
 }
 
