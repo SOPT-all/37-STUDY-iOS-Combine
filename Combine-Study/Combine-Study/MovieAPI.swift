@@ -40,7 +40,7 @@ extension MovieAPI {
 
     private enum Constants {
         static let apiKey = "1e0e28f5603a7ff6e4038ebd37d0fdd7"
-        static let baseURL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json"
+        static let baseURL = "https://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json"
     }
 
 }

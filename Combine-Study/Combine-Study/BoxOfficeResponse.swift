@@ -24,7 +24,6 @@ extension MovieAPI {
         let openDt: String
         let salesAcc: String
         let audiCnt: String
-        let audiChange: String
         let audiAcc: String
     }
     
