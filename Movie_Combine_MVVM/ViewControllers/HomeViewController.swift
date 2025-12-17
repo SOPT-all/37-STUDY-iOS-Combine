@@ -17,7 +17,6 @@ final class HomeView: UIView {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collection.register(HomeCollectionViewCell.self,
                             forCellWithReuseIdentifier: HomeCollectionViewCell.identifier)
-        collection.backgroundColor = .darkGray
         return collection
     }()
 
@@ -52,6 +51,7 @@ final class HomeCollectionViewCell: UICollectionViewCell {
     }
     
     let prdtYearLabel = UILabel().then {
+        $0.textAlignment = .right
         $0.font = .systemFont(ofSize: 14, weight: .regular)
     }
     
@@ -63,11 +63,13 @@ final class HomeCollectionViewCell: UICollectionViewCell {
         movieNMLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalToSuperview().offset(16)
+            make.trailing.equalTo(prdtYearLabel.snp.leading).offset(-10)
         }
         
         prdtYearLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview().offset(-16)
+            make.width.equalTo(50)
         }
     }
 
@@ -75,8 +77,18 @@ final class HomeCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(data: Movie) {
-        movieNMLabel.text = data.movieNm
+    func configure(data: Movie, index: Int) {
+        switch (index / 10 ) % 3 {
+        case 0:
+            movieNMLabel.textColor = .systemPink
+        case 1:
+            movieNMLabel.textColor = .systemCyan
+        case 2:
+            movieNMLabel.textColor = .systemGreen
+        default:
+            movieNMLabel.textColor = .white
+        }
+        movieNMLabel.text = String(index + 1) + ": " + data.movieNm
         prdtYearLabel.text = data.prdtYear
     }
     
@@ -97,7 +109,7 @@ class HomeViewController: UIViewController {
         self.view = homeView
         homeView.collectionView.delegate = self
         homeView.collectionView.dataSource = self
-        bineViewModel()
+        bindViewModel()
         inputSubject.send(.viewDidLoad)
     }
     
@@ -106,7 +118,7 @@ class HomeViewController: UIViewController {
         homeView.setCollectionViewLayout()
     }
     
-    func bineViewModel() {
+    func bindViewModel() {
         let output = viewModel.transform(input: inputSubject.eraseToAnyPublisher())
         
         output
@@ -134,24 +146,18 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                     return UICollectionViewCell()
                 }
         let data = viewModel.movies[indexPath.row]
-        cell.configure(data: data)
+        cell.configure(data: data, index: indexPath.row)
         return cell
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
-            let contentHeight = scrollView.contentSize.height
-            let height = scrollView.frame.size.height
-                
-            if offsetY > contentHeight - height {
-                throttleWorkItem?.cancel()
-                
-                throttleWorkItem = DispatchWorkItem { [weak self] in
-                    guard let self = self else { return }
-                    inputSubject.send(.hitBottom)
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: throttleWorkItem!)
-            }
+        let contentHeight = scrollView.contentSize.height
+        let height = scrollView.frame.size.height
+        
+        if offsetY > contentHeight - height - 100 {
+            inputSubject.send(.hitBottom)
+        }
     }
 }
 
@@ -184,37 +190,51 @@ class MovieViewModel: InputOutputViewModelProtocol {
 
     func transform(input: AnyPublisher<Input, Never>) -> AnyPublisher<Output, Never> {
         input
-            .receive(on: DispatchQueue.global())
+            .flatMap { input -> AnyPublisher<Input, Never> in
+                switch input {
+                case .hitBottom:
+                    return Just(input)
+                        .throttle(for: .seconds(0.3), scheduler: RunLoop.main, latest: true)
+                        .eraseToAnyPublisher()
+                default :
+                    return Just(input).eraseToAnyPublisher()
+                }
+            }
             .sink { [weak self] input in
                 guard let self = self else { return }
-                guard let apiKey = Bundle.main.movieAPIKey else { return }
                 switch input {
                 case .hitBottom, .viewDidLoad:
-                    guard !isFetching else { return }
-                    isFetching = true
-                    URLSession.shared.dataTaskPublisher(for: URL(string: "https://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=\(apiKey)&curPage=\(currentPage)&itemPerPage=\(size)")!)
-                        .map(\.data)
-                        .decode(type: MovieListResponse.self, decoder: JSONDecoder())
-                        .receive(on: DispatchQueue.main)
-                        .sink(receiveCompletion: { completion in
-                            switch completion {
-                            case .failure(let error):
-                                print("MovieListResponse failed: \(error)")
-                            case .finished:
-                                break
-                            }
-                            self.isFetching = false
-                        }, receiveValue: { [weak self] response in
-                            guard let self = self else { return }
-                            self.movies.append(contentsOf: response.movieListResult.movieList)
-                            self.currentPage += 1
-                            self.isFetching = false
-                            self.output.send(.dataFetched)
-                        })
-                        .store(in: &cancellables)
+                    fetchMovieData()
                 }
-            }.store(in: &cancellables)
+            }
+            .store(in: &cancellables)
         return output.eraseToAnyPublisher()
+    }
+
+    private func fetchMovieData() {
+        guard !isFetching else { return }
+        guard let apiKey = Bundle.main.movieAPIKey else { return }
+        isFetching = true
+        URLSession.shared.dataTaskPublisher(for: URL(string: "https://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=\(apiKey)&curPage=\(currentPage)&itemPerPage=\(size)")!)
+            .map(\.data)
+            .decode(type: MovieListResponse.self, decoder: JSONDecoder())
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .failure(let error):
+                    print("MovieListResponse failed: \(error)")
+                case .finished:
+                    break
+                }
+                self.isFetching = false
+            }, receiveValue: { [weak self] response in
+                guard let self = self else { return }
+                movies.append(contentsOf: response.movieListResult.movieList)
+                currentPage += 1
+                isFetching = false
+                output.send(.dataFetched)
+            })
+            .store(in: &cancellables)
     }
 }
 
