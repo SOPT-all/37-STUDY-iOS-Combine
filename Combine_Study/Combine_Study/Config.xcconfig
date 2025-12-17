@@ -1,0 +1,12 @@
+//
+//  Config.xcconfig
+//  Combine_Study
+//
+//  Created by 임소은 on 12/16/25.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://developer.apple.com/documentation/xcode/adding-a-build-configuration-file-to-your-project
+
+KOBIS_API_KEY = ceee330c1ae2fd0f4df95d46826e4b26
+
