@@ -44,7 +44,6 @@ final class MovieViewModel: InputOutputViewModelProtocol {
                     guard !keyword.isEmpty else { return }
                     searchMovieData(keyword: keyword)
                 case .search(let keyword):
-                    self.movies = []
                     self.searchCurrentPage = 1
                     searchMovieData(keyword: keyword)
                 }
@@ -84,9 +83,7 @@ final class MovieViewModel: InputOutputViewModelProtocol {
         guard let apiKey = Bundle.main.movieAPIKey else { return }
         isSearchFetching = true
         URLSession.shared
-            .dataTaskPublisher(
-                for: URL(
-                    string: "https://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=\(apiKey)&curPage=\(searchCurrentPage)&itemPerPage=\(size)&movieNm=\(keyword)")!
+            .dataTaskPublisher(for: URL(string: "https://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=\(apiKey)&curPage=\(searchCurrentPage)&itemPerPage=\(size)&movieNm=\(keyword)")!
             )
             .map(\.data)
             .decode(type: MovieListResponse.self, decoder: JSONDecoder())
@@ -101,8 +98,11 @@ final class MovieViewModel: InputOutputViewModelProtocol {
                 self.isSearchFetching = false
             }, receiveValue: { [weak self] response in
                 guard let self = self else { return }
-                print("result: \(response.movieListResult.movieList)")
-                movies.append(contentsOf: response.movieListResult.movieList)
+                if searchCurrentPage == 1 {
+                    movies = response.movieListResult.movieList
+                } else {
+                    movies.append(contentsOf: response.movieListResult.movieList)
+                }
                 output.send(.dataFetched)
                 searchCurrentPage += 1
                 isSearchFetching = false
@@ -110,4 +110,3 @@ final class MovieViewModel: InputOutputViewModelProtocol {
             .store(in: &cancellables)
     }
 }
-
