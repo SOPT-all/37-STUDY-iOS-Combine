@@ -9,9 +9,10 @@ import SwiftUI
 
 struct MovieListView: View {
     @StateObject private var viewModel = MovieListViewModel()
+    @EnvironmentObject var pathModel: PathModel
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $pathModel.paths) {
             Group {
                 if viewModel.isLoading {
                     ProgressView()
@@ -22,6 +23,14 @@ struct MovieListView: View {
                 }
             }
             .navigationTitle("영화 목록")
+            .navigationDestination(for: PathType.self) { pathType in
+                switch pathType {
+                case .detail(let movieCd):
+                    MovieDetailView(movieCd: movieCd)
+                }
+                
+            }
+            
         }
         .onAppear {
             viewModel.fetchMovies()
@@ -31,7 +40,12 @@ struct MovieListView: View {
     private var movieList: some View {
         List(viewModel.movies, id: \.movieCd) { movie in
             MovieRow(movie: movie)
+                .onTapGesture {
+                    pathModel.paths.append(.detail(movieCd: movie.movieCd))
+                }
+            
         }
+        
     }
     
     private func errorView(_ message: String) -> some View {

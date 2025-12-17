@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct MovieApp: App {
+    @StateObject private var pathModel = PathModel()
     var body: some Scene {
         WindowGroup {
             MovieListView()
+                .environmentObject(pathModel)
         }
     }
 }

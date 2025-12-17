@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+enum PathType: Hashable {
+    case detail(movieCd: String)
+}
