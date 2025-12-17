@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		8DB089532EF1D06900042BCA /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8DB089522EF1D06900042BCA /* SnapKit */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		8DB0889E2EF1C39200042BCA /* Combine-Study.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Combine-Study.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DB089532EF1D06900042BCA /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +83,7 @@
 			);
 			name = "Combine-Study";
 			packageProductDependencies = (
+				8DB089522EF1D06900042BCA /* SnapKit */,
 			);
 			productName = "Combine-Study";
 			productReference = 8DB0889E2EF1C39200042BCA /* Combine-Study.app */;
@@ -107,6 +113,9 @@
 			);
 			mainGroup = 8DB088952EF1C39200042BCA;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				8DB089512EF1D06900042BCA /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 8DB0889F2EF1C39200042BCA /* Products */;
 			projectDirPath = "";
@@ -339,6 +348,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8DB089512EF1D06900042BCA /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8DB089522EF1D06900042BCA /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8DB089512EF1D06900042BCA /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8DB088962EF1C39200042BCA /* Project object */;
 }
