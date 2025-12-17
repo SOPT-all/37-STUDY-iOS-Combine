@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		A4FEF61E2EF26F7600576371 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = A4FEF61D2EF26F7600576371 /* SnapKit */; };
+		A4FEF6212EF26F8000576371 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = A4FEF6202EF26F8000576371 /* Then */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		A4FEF5E22EF197D300576371 /* movie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = movie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4FEF61E2EF26F7600576371 /* SnapKit in Frameworks */,
+				A4FEF6212EF26F8000576371 /* Then in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +85,8 @@
 			);
 			name = movie;
 			packageProductDependencies = (
+				A4FEF61D2EF26F7600576371 /* SnapKit */,
+				A4FEF6202EF26F8000576371 /* Then */,
 			);
 			productName = movie;
 			productReference = A4FEF5E22EF197D300576371 /* movie.app */;
@@ -107,6 +116,10 @@
 			);
 			mainGroup = A4FEF5D92EF197D300576371;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				A4FEF61C2EF26F7600576371 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				A4FEF61F2EF26F8000576371 /* XCRemoteSwiftPackageReference "Then" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A4FEF5E32EF197D300576371 /* Products */;
 			projectDirPath = "";
@@ -140,6 +153,8 @@
 /* Begin XCBuildConfiguration section */
 		A4FEF5F62EF197D500576371 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = A4FEF5E42EF197D300576371 /* movie */;
+			baseConfigurationReferenceRelativePath = Config.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -171,6 +186,8 @@
 		};
 		A4FEF5F72EF197D500576371 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = A4FEF5E42EF197D300576371 /* movie */;
+			baseConfigurationReferenceRelativePath = Config.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -202,6 +219,8 @@
 		};
 		A4FEF5F82EF197D500576371 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = A4FEF5E42EF197D300576371 /* movie */;
+			baseConfigurationReferenceRelativePath = Config.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -266,6 +285,8 @@
 		};
 		A4FEF5F92EF197D500576371 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = A4FEF5E42EF197D300576371 /* movie */;
+			baseConfigurationReferenceRelativePath = Config.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -343,6 +364,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A4FEF61C2EF26F7600576371 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+		A4FEF61F2EF26F8000576371 /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A4FEF61D2EF26F7600576371 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A4FEF61C2EF26F7600576371 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		A4FEF6202EF26F8000576371 /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A4FEF61F2EF26F8000576371 /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A4FEF5DA2EF197D300576371 /* Project object */;
 }
