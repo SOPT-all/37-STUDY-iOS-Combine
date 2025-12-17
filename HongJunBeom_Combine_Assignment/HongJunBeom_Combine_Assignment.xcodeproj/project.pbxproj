@@ -215,6 +215,8 @@
 		};
 		F72C21162EF17BDB005B12B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = F72C21022EF17BDA005B12B1 /* HongJunBeom_Combine_Assignment */;
+			baseConfigurationReferenceRelativePath = Network/Config.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -279,6 +281,8 @@
 		};
 		F72C21172EF17BDB005B12B1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = F72C21022EF17BDA005B12B1 /* HongJunBeom_Combine_Assignment */;
+			baseConfigurationReferenceRelativePath = Network/Config.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
