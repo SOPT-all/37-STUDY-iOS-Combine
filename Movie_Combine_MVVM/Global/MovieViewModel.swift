@@ -34,21 +34,53 @@ final class MovieViewModel: InputOutputViewModelProtocol {
     private let size: Int = 10
 
     func transform(input: AnyPublisher<Input, Never>) -> AnyPublisher<Output, Never> {
+
+        // 1. ViewDidLoad 처리 (즉시 실행)
         input
-            .sink { [weak self] input in
-                guard let self = self else { return }
-                switch input {
-                case .hitHomeViewBottom, .viewDidLoad:
-                    fetchPeopleData()
-                case .hitSearchViewBottom(let keyword):
-                    guard !keyword.isEmpty else { return }
-                    searchMovieData(keyword: keyword)
-                case .search(let keyword):
-                    self.searchCurrentPage = 1
-                    searchMovieData(keyword: keyword)
-                }
+            .filter { if case .viewDidLoad = $0 { return true } else { return false } }
+            .sink { [weak self] _ in
+                self?.fetchPeopleData()
             }
             .store(in: &cancellables)
+
+        // 2. 검색어 입력 처리 (Debounce 적용)
+        // - 사용자가 타자를 칠 때는 기다렸다가, 멈추면(0.5초) API 호출
+        input
+            .compactMap { input -> String? in
+                guard case let .search(keyword) = input else { return nil }
+                return keyword
+            }
+            .debounce(for: .milliseconds(500), scheduler: RunLoop.main) // ✅ Debounce
+            .removeDuplicates() // 같은 검색어 연속 호출 방지
+            .sink { [weak self] keyword in
+                self?.searchCurrentPage = 1 // 검색시 페이지 초기화 로직
+                self?.searchMovieData(keyword: keyword)
+            }
+            .store(in: &cancellables)
+
+        // 3. 홈 화면 바닥 감지 (Throttle 적용)
+        // - 스크롤을 마구 내려도 0.3초에 한 번만 트리거
+        input
+            .filter { if case .hitHomeViewBottom = $0 { return true } else { return false } }
+            .throttle(for: .milliseconds(300), scheduler: RunLoop.main, latest: false) // ✅ Throttle
+            .sink { [weak self] _ in
+                self?.fetchPeopleData()
+            }
+            .store(in: &cancellables)
+
+        // 4. 검색 화면 바닥 감지 (Throttle 적용)
+        input
+            .compactMap { input -> String? in
+                guard case let .hitSearchViewBottom(keyword) = input else { return nil }
+                return keyword
+            }
+            .throttle(for: .milliseconds(300), scheduler: RunLoop.main, latest: false) // ✅ Throttle
+            .sink { [weak self] keyword in
+                guard let self = self, !keyword.isEmpty else { return }
+                self.searchMovieData(keyword: keyword)
+            }
+            .store(in: &cancellables)
+
         return output.eraseToAnyPublisher()
     }
 
