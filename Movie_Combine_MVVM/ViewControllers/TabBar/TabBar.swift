@@ -27,6 +27,10 @@ class TabBarController: UITabBarController,  UITabBarControllerDelegate {
         let tabTwoBarItem = UITabBarItem(title: "영화 검색", image: UIImage(systemName: "magnifyingglass"), tag: 1)
         tabTwo.tabBarItem = tabTwoBarItem
         
-        self.viewControllers = [tabOne, tabTwo]
+        let tabThree = UINavigationController(rootViewController: SSEViewController())
+        let tabThreeBarItem = UITabBarItem(title: "SSE", image: UIImage(systemName: "globe"), tag: 1)
+        tabThree.tabBarItem = tabThreeBarItem
+        
+        self.viewControllers = [tabOne, tabTwo, tabThree]
     }
 }
